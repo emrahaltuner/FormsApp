@@ -31,3 +31,4 @@
 /Users/emrahaltuner/development/aspNetCore/FormsApp/obj/Debug/net8.0/FormsApp.pdb
 /Users/emrahaltuner/development/aspNetCore/FormsApp/obj/Debug/net8.0/FormsApp.genruntimeconfig.cache
 /Users/emrahaltuner/development/aspNetCore/FormsApp/obj/Debug/net8.0/ref/FormsApp.dll
+/Users/emrahaltuner/development/aspNetCore/FormsApp/obj/Debug/net8.0/FormsApp.sourcelink.json
