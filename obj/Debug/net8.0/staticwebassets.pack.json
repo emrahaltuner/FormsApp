@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets/img/3.jpg"
     },
     {
+      "Id": "/Users/emrahaltuner/development/aspNetCore/FormsApp/wwwroot/img/395dc1ee-95c0-461b-b93b-f418eb6a2b68.jpg",
+      "PackagePath": "staticwebassets/img/395dc1ee-95c0-461b-b93b-f418eb6a2b68.jpg"
+    },
+    {
       "Id": "/Users/emrahaltuner/development/aspNetCore/FormsApp/wwwroot/img/4.jpg",
       "PackagePath": "staticwebassets/img/4.jpg"
     },
@@ -51,6 +55,14 @@
     {
       "Id": "/Users/emrahaltuner/development/aspNetCore/FormsApp/wwwroot/img/ba9f7c7e-06bf-4294-ac78-6a94944e6459.jpg",
       "PackagePath": "staticwebassets/img/ba9f7c7e-06bf-4294-ac78-6a94944e6459.jpg"
+    },
+    {
+      "Id": "/Users/emrahaltuner/development/aspNetCore/FormsApp/wwwroot/img/ekerayran+-500x500.jpg",
+      "PackagePath": "staticwebassets/img/ekerayran+-500x500.jpg"
+    },
+    {
+      "Id": "/Users/emrahaltuner/development/aspNetCore/FormsApp/wwwroot/img/karisik-omlet1728895553.jpg",
+      "PackagePath": "staticwebassets/img/karisik-omlet1728895553.jpg"
     },
     {
       "Id": "/Users/emrahaltuner/development/aspNetCore/FormsApp/wwwroot/js/site.js",

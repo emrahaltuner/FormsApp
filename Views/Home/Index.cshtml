@@ -28,6 +28,7 @@
                     <th>@Html.DisplayNameFor(m=>m.Name)</th>
                     <th style="width: 100px;">@Html.DisplayNameFor(m=>m.Price)</th>
                     <th style="width: 100px;">Cat ID</th>
+                    <th style="width: 100px;">image</th>
                     <th style="width: 200px;">Action</th>
 
                 </tr>
@@ -41,8 +42,9 @@
                     <td>@item.Name</td>
                     <td>@item.Price</td>
                     <td>@item.CategoryId</td>
+                    <td>@item.Image</td>
                     <td>
-                        <a href="" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="home/edit/@item.ProductId" class="btn btn-sm btn-primary">Edit</a>
                         <a href="" class="btn btn-sm btn-danger">Delete</a>
                     </td>
                 </tr>

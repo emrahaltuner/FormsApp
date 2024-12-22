@@ -17,7 +17,7 @@ public class HomeController : Controller
         if (!string.IsNullOrEmpty(searchString))
         {
             ViewBag.searchString = searchString;
-            pruducts = pruducts.Where(p => p.Name.ToLower().Contains(searchString)).ToList();
+            pruducts = pruducts.Where(p => p.Name!.ToLower().Contains(searchString)).ToList();
         }
         if (!string.IsNullOrEmpty(category) && category != "0")
         {
@@ -28,10 +28,54 @@ public class HomeController : Controller
         ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name", category);
         return View(pruducts);
     }
-
-    public IActionResult Privacy()
+    [HttpGet]
+    public IActionResult Create()
     {
+        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
         return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create(Product model, IFormFile imageFile)
+    {
+        var allowedExtensin = new[] { ".jpg", ".jpeg", ".png" };
+        var ext = Path.GetExtension(imageFile.FileName);
+        var randomFileName = string.Format($"{Guid.NewGuid()}{ext}");
+        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+        if (imageFile != null)
+        {
+            if (!allowedExtensin.Contains(ext))
+            {
+                ModelState.AddModelError("", "Geçerli bir resim seçin");
+            }
+
+        }
+        if (ModelState.IsValid)
+        {
+            if (imageFile != null)
+            {
+                using (var strem = new FileStream(path, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(strem);
+                }
+                model.Image = randomFileName;
+            }
+
+            model.ProductId = Repository.Products.Count() + 1;
+
+            Repository.CreateProduct(model);
+            return RedirectToAction("Index");
+        }
+        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
+        return View(model);
+    }
+
+    public IActionResult Edit(int? id)
+    {
+        var product = Repository.Products.FirstOrDefault(p => p.ProductId == id);
+        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
+
+        return View(product);
     }
 
 }
