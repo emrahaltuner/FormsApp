@@ -31,7 +31,8 @@
                     </ul>
                 </div>
                 <form class="d-flex" asp-action="Index" method="get">
-                    <input type="search" class="form-control me-2" placeholder="Anahtar kelime" name="searchString">
+                    <input type="search" class="form-control me-2" value="@ViewBag.searchString"
+                        placeholder="Anahtar kelime" name="searchString">
                     <button type="submit" class="btn btn-outline-success">Search</button>
                 </form>
             </div>

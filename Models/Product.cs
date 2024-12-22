@@ -17,5 +17,6 @@ namespace FormsApp.Models
 
         public decimal Price { get; set; }  // Price property
         public int CategoryId { get; set; } // CategoryId property
+
     }
 }
