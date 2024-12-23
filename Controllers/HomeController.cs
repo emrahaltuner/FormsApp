@@ -48,7 +48,6 @@ public class HomeController : Controller
             {
                 ModelState.AddModelError("", "Geçerli bir resim seçin");
             }
-
         }
         if (ModelState.IsValid)
         {
@@ -76,6 +75,36 @@ public class HomeController : Controller
         ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
 
         return View(product);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Edit(int id, Product model, IFormFile? imageFile)
+    {
+
+        if (id != model.ProductId)
+        {
+            return NotFound();
+        }
+        if (ModelState.IsValid)
+        {
+
+            if (imageFile != null)
+            {
+                var ext = Path.GetExtension(imageFile.FileName);
+                var randomFileName = string.Format($"{Guid.NewGuid()}{ext}");
+                var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img", randomFileName);
+
+                using (var strem = new FileStream(path, FileMode.Create))
+                {
+                    await imageFile.CopyToAsync(strem);
+                }
+                model.Image = randomFileName;
+            }
+            Repository.EditProduct(model);
+            return RedirectToAction("Index");
+        }
+        ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name");
+        return RedirectToAction("model");
     }
 
 }

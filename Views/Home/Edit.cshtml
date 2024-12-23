@@ -3,12 +3,13 @@
 ViewData["Title"] = "Privacy Policy";
 }
 
-<form asp-controller="Home" asp-action="Create" method="post" class="form-control" enctype="multipart/form-data">
+<form asp-controller="Home" asp-action="Edit" method="post" class="form-control" enctype="multipart/form-data">
 
     <div asp-validation-summary="All"></div>
 
     <div class="form-group mb-3">
         <label asp-for="Name" class="form-label"></label>
+        <input type="hidden" asp-for="ProductId">
         <input asp-for="Name" class="form-control">
         <span class="text-danger" asp-validation-for="Name"></span>
     </div>
@@ -21,6 +22,8 @@ ViewData["Title"] = "Privacy Policy";
     <div class="form-group mb-3">
         <label asp-for="Image" class="form-label"></label><br>
         <input type="file" name="imageFile" id="imageFile">
+        <div><img src="~/img/@Model.Image" style="width: 100px;" alt=""></div>
+        <input type="hidden" asp-for="@Model.Image">
         <span class="text-danger" asp-validation-for="Image"></span>
     </div>
     <div class="form-group mb-3">
@@ -29,6 +32,10 @@ ViewData["Title"] = "Privacy Policy";
         <select asp-for="CategoryId" asp-items="@ViewBag.Categories" class="form-control">
             <option>Ürün Kategorisi</option>
         </select>
+    </div>
+    <div class="mb-3 form-check">
+        <input asp-for="IsActive" class="form-check-input">
+        <label asp-for="IsActive" class="form-check-label"></label>
     </div>
     <button class="btn btn-primary" type="submit">Kaydet</button>
 </form>
