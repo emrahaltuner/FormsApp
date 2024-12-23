@@ -1,53 +1,58 @@
-﻿@model IEnumerable<Product>
-    @{
-    ViewData["Title"] = "Home Page";
-    }
+﻿@model ProductViewModel
+@{
+ViewData["Title"] = "Home Page";
+}
 
-    <div class="card card-body my-3">
-        <form asp-action="Index" method="get">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-11">
-                        <select class="form-select" name="category" asp-items="@ViewBag.Categories">
-                            <option value="0">Hepsi</option>
-                        </select>
-                    </div>
-                    <div class="col-md-1">
-                        <button type="submit" class="btn btn-primary">Filtrele</button>
-                    </div>
+<div class="card card-body my-3">
+    <form asp-action="Index" method="get">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-11">
+                    <select class="form-select" name="category" asp-items="@ViewBag.Categories">
+                        <option value="0">Hepsi</option>
+                    </select>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary">Filtrele</button>
                 </div>
             </div>
-        </form>
-    </div>
-    <div class="text-center">
-        <table class="table table-border table-striped">
+        </div>
+    </form>
+</div>
+<div class="text-center">
+    <form asp-action="EditProducts" method="post">
+        <table class="table">
             <thead>
                 <tr>
-                    <th style="width: 100px;">@Html.DisplayNameFor(m=>m.ProductId)</th>
-                    <th style="width: 100px;">@Html.DisplayNameFor(m=>m.Image)</th>
-                    <th>@Html.DisplayNameFor(m=>m.Name)</th>
-                    <th style="width: 100px;">@Html.DisplayNameFor(m=>m.Price)</th>
-                    <th style="width: 100px;">Cat ID</th>
-                    <th style="width: 100px;">image</th>
-                    <th style="width: 200px;">Action</th>
-
+                    <th>Product ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Category ID</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
-                <tr>
-                    <td>@item.ProductId</td>
-                    <td><img src="~/img/@item.Image" class="img-fluid" alt=""></td>
-                    <td>@item.Name</td>
-                    <td>@item.Price</td>
-                    <td>@item.CategoryId</td>
-                    <td>@item.Image</td>
-                    <td>
-                        <a href="/home/edit/@item.ProductId" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="/home/delete/@item.ProductId" class="btn btn-sm btn-danger">Delete</a>
+
+                @for(int i=0 ; i < @Model.Products.Count; i++) { <tr>
+                    <td>@Model.Products[i].ProductId
+                        <input type="hidden" asp-for="@Model.Products[i].ProductId">
                     </td>
-                </tr>
-                }
+                    <td><img src="~/img/@Model.Products[i].Image" class="img-fluid" style="width: 100px;"
+                            alt="@Model.Products[i].Name"></td>
+                    <td>@Model.Products[i].Name</td>
+                    <td>@Model.Products[i].Price</td>
+                    <td>
+                        <input type="checkbox" asp-for="@Model.Products[i].IsActive">
+                    </td>
+                    <td>
+                        <a href="/home/edit/@Model.Products[i].ProductId" class="btn btn-sm btn-primary">Edit</a>
+                        <a href="/home/delete/@Model.Products[i].ProductId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                    </tr>
+                    }
+            </tbody>
         </table>
-    </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+</div>

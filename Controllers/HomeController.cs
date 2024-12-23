@@ -12,21 +12,29 @@ public class HomeController : Controller
 
     public IActionResult Index(string searchString, string category)
     {
+        var products = Repository.Products;
 
-        var pruducts = Repository.Products;
-        if (!string.IsNullOrEmpty(searchString))
+        if (!String.IsNullOrEmpty(searchString))
         {
-            ViewBag.searchString = searchString;
-            pruducts = pruducts.Where(p => p.Name!.ToLower().Contains(searchString)).ToList();
+            ViewBag.SearchString = searchString;
+            products = products.Where(p => p.Name.ToLower().Contains(searchString)).ToList();
         }
-        if (!string.IsNullOrEmpty(category) && category != "0")
+
+        if (!String.IsNullOrEmpty(category) && category != "0")
         {
-            ViewBag.category = category;
-            pruducts = pruducts.Where(p => p.CategoryId.ToString() == category).ToList();
+            products = products.Where(p => p.CategoryId == int.Parse(category)).ToList();
         }
 
         ViewBag.Categories = new SelectList(Repository.Categories, "CategoryId", "Name", category);
-        return View(pruducts);
+
+        var model = new ProductViewModel
+        {
+            Products = products,
+            Categories = Repository.Categories,
+            SelectedCategory = category
+        };
+
+        return View(model);
     }
     [HttpGet]
     public IActionResult Create()
@@ -136,6 +144,17 @@ public class HomeController : Controller
             return NotFound();
         }
         Repository.DeleteProduct(product);
+        return RedirectToAction("Index");
+    }
+
+    [HttpPost]
+
+    public IActionResult EditProducts(List<Product> Products)
+    {
+        foreach (var product in Products)
+        {
+            Repository.EditIsActive(product);
+        }
         return RedirectToAction("Index");
     }
 

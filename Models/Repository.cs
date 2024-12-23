@@ -14,10 +14,10 @@ namespace FormsApp.Models
 
             _products.Add(new Product { ProductId = 1, Name = "Samsung S5", Image = "1.jpg", Price = 2000, IsActive = true, CategoryId = 1 });
             _products.Add(new Product { ProductId = 2, Name = "İphone 16 pro max", Image = "2.jpg", Price = 3000, IsActive = true, CategoryId = 1 });
-            _products.Add(new Product { ProductId = 3, Name = "İphone 16 pro max", Image = "3.jpg", Price = 4000, IsActive = true, CategoryId = 1 });
+            _products.Add(new Product { ProductId = 3, Name = "İphone 16 pro max", Image = "3.jpg", Price = 4000, IsActive = false, CategoryId = 1 });
             _products.Add(new Product { ProductId = 4, Name = "İphone 14 pro max", Image = "4.jpg", Price = 6000, IsActive = true, CategoryId = 1 });
 
-            _products.Add(new Product { ProductId = 5, Name = "Macbook Air", Image = "5.jpg", Price = 9000, IsActive = true, CategoryId = 2 });
+            _products.Add(new Product { ProductId = 5, Name = "Macbook Air", Image = "5.jpg", Price = 9000, IsActive = false, CategoryId = 2 });
             _products.Add(new Product { ProductId = 6, Name = "Macbook Pro m2", Image = "6.jpg", Price = 12000, IsActive = true, CategoryId = 2 });
         }
         public static List<Product> Products
@@ -51,6 +51,16 @@ namespace FormsApp.Models
                 entity.Price = updatedProduct.Price;
                 entity.Image = updatedProduct.Image;
                 entity.CategoryId = updatedProduct.CategoryId;
+                entity.IsActive = updatedProduct.IsActive;
+            }
+
+        }
+        public static void EditIsActive(Product updatedProduct)
+        {
+            var entity = _products.FirstOrDefault(p => p.ProductId == updatedProduct.ProductId);
+            if (entity != null)
+            {
+
                 entity.IsActive = updatedProduct.IsActive;
             }
 
